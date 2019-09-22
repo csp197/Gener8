@@ -9,7 +9,7 @@ class PasswordStrengthMeter extends Component {
             case 0:
                 return 'Weak';
             case 1:
-                return 'Week';
+                return 'Weak';
             case 2:
                 return 'Fair';
             case 3:
