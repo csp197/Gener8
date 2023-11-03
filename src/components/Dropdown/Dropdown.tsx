@@ -5,9 +5,13 @@ interface DropdownProps {
   title: string;
   values: string[];
   className: string;
-  state: string;
-  setter: React.Dispatch<React.SetStateAction<string>>;
+  state: string | { [key: string]: boolean };
+  setter:
+    | React.Dispatch<React.SetStateAction<string>>
+    | React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>;
   type: string;
+
+  changeFunc?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const dropDownArrowSvgCode = (
@@ -31,6 +35,8 @@ const dropDownArrowSvgCode = (
 );
 
 const Dropdown = (props: DropdownProps) => {
+  const map: { [key: string]: boolean } = props.state;
+
   return (
     <div>
       {/* <button className="btn btn-outline btn-info">Info</button> */}
@@ -81,24 +87,31 @@ const Dropdown = (props: DropdownProps) => {
             return (
               <li key={index}>
                 <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                  {props.type === "checkbox" ? (
+                  {props.type === "radio" ? (
                     <input
-                      checked
-                      id="item"
-                      type="checkbox"
+                      id={value.toLowerCase()}
+                      type="radio"
                       value=""
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        event.preventDefault();
+                        const setfunc = props.setter
+                        props.setter(event.target.value);
+                        console.log(props.passwordType);
+                      }}
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                     />
                   ) : (
                     <input
-                      id="item"
-                      type="radio"
+                      checked={}
+                      id={value.toLowerCase()}
+                      type="checkbox"
                       value=""
-                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                    ></input>
+                      onChange={props.changeFunc}
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                    />
                   )}
                   <label
-                    htmlFor="item"
+                    htmlFor={value.toLowerCase()}
                     className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
                   >
                     {value}

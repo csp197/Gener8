@@ -7,7 +7,11 @@ interface ButtonProps {
   id?: string;
   dropdownToggle?: string;
   dropdownTrigger?: string;
+
+  clickFunc?: () => void;
 }
+
+
 
 const Button = (props: ButtonProps) => {
   return (
@@ -18,7 +22,9 @@ const Button = (props: ButtonProps) => {
         id={props?.id}
         data-dropdown-toggle={props?.dropdownToggle}
         data-dropdown-trigger={props?.dropdownTrigger}
-        className={props.className}>
+        className={props.className}
+        onClick={props.clickFunc}
+        >
           {props.value}
           {props.svgCode}
         </button>

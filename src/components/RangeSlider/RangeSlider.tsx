@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 interface RangeSliderProps {
   min: number;
@@ -15,7 +15,7 @@ const RangeSlider = (props: RangeSliderProps) => {
     props.setter(value);
   }
 
-  useEffect(() => {});
+  // useEffect(() => {});
 
   return (
     <div className="py-9">
