@@ -21,7 +21,8 @@ function App() {
       <PasswordInput />
       <Options
         dropdownTitles={["Password Type:", "Options:"]}
-        dropdownValues={[["Alphanumeric", "Alphabetical", "Numeric", "Catchy"],["{A-Z}","{a-z}","0-9", "!@#$%^&*();:',.`~-_=+"]]}
+        dropdownValues={[["Alphanumeric", "Alphabetical", "Numeric", "Catchy"],["Uppercase","Lowercase","Numbers", "Punctuations"]]}
+        dropdownClasses={["btn-info","btn-warning"]}
         passwordType={passwordType}
         setPasswordType={setPasswordType}
         passwordOptions={passwordOptions}

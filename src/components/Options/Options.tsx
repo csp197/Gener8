@@ -6,6 +6,7 @@ import "./Options.css";
 interface OptionsProps {
   dropdownTitles: string[];
   dropdownValues: string[][];
+  dropdownClasses: string[];
   passwordType: string;
   setPasswordType: React.Dispatch<React.SetStateAction<string>>;
   passwordOptions: string[];
@@ -61,16 +62,22 @@ const Options = (props: OptionsProps) => {
   return (
     <div className="flex-container">
       <Dropdown
+        temp_idx={0}
         title={props.dropdownTitles[0]}
         values={props.dropdownValues[0]}
+        className={props.dropdownClasses[0]}
         state={props.passwordType}
         setter={props.setPasswordType}
+        type="radio"
       />
       <Dropdown
+        temp_idx={1}
         title={props.dropdownTitles[1]}
         values={props.dropdownValues[1]}
+        className={props.dropdownClasses[1]}
         state={props.passwordType}
         setter={props.setPasswordType}
+        type="checkbox"
       />
       <Button
         // title="Refresh Generated Password"

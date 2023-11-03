@@ -1,10 +1,13 @@
 import Button from "../Button/Button";
 
 interface DropdownProps {
+  temp_idx: number;
   title: string;
   values: string[];
+  className: string;
   state: string;
   setter: React.Dispatch<React.SetStateAction<string>>;
+  type: string;
 }
 
 const dropDownArrowSvgCode = (
@@ -34,10 +37,10 @@ const Dropdown = (props: DropdownProps) => {
 
       <Button
         value={props.title}
-        className="btn btn-outline btn-primary"
+        className={"btn btn-outline " + props.className}
         svgCode={dropDownArrowSvgCode}
-        id="dropdownHoverButton"
-        dropdownToggle="dropdownHover"
+        id={"dropdownHoverButton" + props.temp_idx.toString()}
+        dropdownToggle={"dropdownHover" + props.temp_idx.toString()}
         dropdownTrigger="hover"
       />
 
@@ -67,22 +70,46 @@ const Dropdown = (props: DropdownProps) => {
       </button> */}
       {/* <!-- Dropdown menu --> */}
       <div
-        id="dropdownHover"
+        id={"dropdownHover" + props.temp_idx.toString()}
         className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
       >
         <ul
           className="py-2 text-sm text-gray-700 dark:text-gray-200"
-          aria-labelledby="dropdownHoverButton"
+          aria-labelledby={"dropdownHoverButton" + props.temp_idx.toString()}
         >
           {props.values.map((value: string, index: number) => {
             return (
               <li key={index}>
-                <a
+                <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                  {props.type === "checkbox" ? (
+                    <input
+                      checked
+                      id="item"
+                      type="checkbox"
+                      value=""
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                    />
+                  ) : (
+                    <input
+                      id="item"
+                      type="radio"
+                      value=""
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                    ></input>
+                  )}
+                  <label
+                    htmlFor="item"
+                    className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
+                  >
+                    {value}
+                  </label>
+                </div>
+                {/* <a
                   href="#"
                   className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                 >
                   {value}
-                </a>
+                </a> */}
               </li>
             );
           })}
