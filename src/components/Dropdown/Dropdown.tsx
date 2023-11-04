@@ -5,10 +5,10 @@ interface DropdownProps {
   title: string;
   values: string[];
   className: string;
-  state: string | { [key: string]: boolean };
-  setter:
-    | React.Dispatch<React.SetStateAction<string>>
-    | React.Dispatch<React.SetStateAction<{ [key: string]: boolean }>>;
+  passwordTypeState?: string;
+  passwordOptionsState?: boolean[];
+  passwordTypeSetter?: React.Dispatch<React.SetStateAction<string>>;
+  passwordOptionsSetter?: React.Dispatch<React.SetStateAction<boolean[]>>;
   type: string;
 
   changeFunc?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -35,7 +35,12 @@ const dropDownArrowSvgCode = (
 );
 
 const Dropdown = (props: DropdownProps) => {
-  const map: { [key: string]: boolean } = props.state;
+
+  let curr: boolean[];
+
+  if (typeof props.passwordOptionsState != "undefined"){
+    curr = props.passwordOptionsState;
+  }
 
   return (
     <div>
@@ -89,29 +94,46 @@ const Dropdown = (props: DropdownProps) => {
                 <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
                   {props.type === "radio" ? (
                     <input
-                      id={value.toLowerCase()}
+                      id={index.toString()}
                       type="radio"
                       value=""
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      onChange={(
+                        event: React.ChangeEvent<HTMLInputElement>
+                      ) => {
                         event.preventDefault();
-                        const setfunc = props.setter
-                        props.setter(event.target.value);
-                        console.log(props.passwordType);
+                        console.log(event);
+                        // const setFunc = props.passwordTypeSetter;
+                        // if (typeof setFunc != "undefined") {
+                        //   setFunc(event.target.value);
+                        // }
+                        // console.log(props.passwordTypeState);
                       }}
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                     />
                   ) : (
                     <input
-                      checked={}
-                      id={value.toLowerCase()}
+                      checked={curr[index]}
+                      id={index.toString()}
                       type="checkbox"
                       value=""
-                      onChange={props.changeFunc}
+                      onChange={(
+                        event: React.ChangeEvent<HTMLInputElement>
+                      ) => {
+                        event.preventDefault();
+                        const id = parseInt(event.target.id);
+                        let passwordOptionsState;
+                        if (typeof props.passwordOptionsState != "undefined" && typeof props.passwordOptionsSetter != "undefined"){
+                          passwordOptionsState = props.passwordOptionsState;
+                          const curr = passwordOptionsState[id];
+                          passwordOptionsState[id] = !curr;
+                          props.passwordOptionsSetter(passwordOptionsState);
+                        }
+                      }}
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                     />
                   )}
                   <label
-                    htmlFor={value.toLowerCase()}
+                    htmlFor={index.toString()}
                     className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
                   >
                     {value}

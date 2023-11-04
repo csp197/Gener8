@@ -10,18 +10,23 @@ import Options from "./components/Options/Options";
 import RangeSlider from "./components/RangeSlider/RangeSlider";
 
 function App() {
-  const [password, setPassword] = useState("");
+  const [
+    password,
+    // setPassword
+  ] = useState("");
   const [passwordType, setPasswordType] = useState("");
   const [passwordLength, setPasswordLength] = useState(5);
 
-  const optionsMap = {
-    uppercase: false,
-    lowercase: false,
-    numbers: false,
-    punctuation: false,
+  const options = {
+    options: [
+      { id: 1, value: "uppercase", isChecked: false },
+      { id: 2, value: "lowercase", isChecked: false },
+      { id: 3, value: "numbers", isChecked: false },
+      { id: 4, value: "punctuation", isChecked: false },
+    ],
   };
 
-  const [passwordOptions, setPasswordOptions] = useState(optionsMap);
+  const [passwordOptions, setPasswordOptions] = useState(options);
 
   return (
     // <div className="flex flex-col items-center justify-center min-h-screen">
@@ -35,11 +40,11 @@ function App() {
           ["Uppercase", "Lowercase", "Numbers", "Punctuation"],
         ]}
         dropdownClasses={["btn-info", "btn-warning"]}
-        password={password}
-        passwordType={passwordType}
-        setPasswordType={setPasswordType}
-        passwordOptions={passwordOptions}
-        setPasswordOptions={setPasswordOptions}
+        passwordState={password}
+        passwordTypeState={passwordType}
+        passwordOptionsState={passwordOptions}
+        passwordTypeSetter={setPasswordType}
+        passwordOptionsSetter={setPasswordOptions}
       />
       <RangeSlider
         min={3}

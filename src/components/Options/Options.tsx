@@ -7,13 +7,11 @@ interface OptionsProps {
   dropdownTitles: string[];
   dropdownValues: string[][];
   dropdownClasses: string[];
-  password: string;
-  passwordType: string;
-  setPasswordType: React.Dispatch<React.SetStateAction<string>>;
-  passwordOptions: {[key: string]: boolean};
-  setPasswordOptions: React.Dispatch<
-    React.SetStateAction<{[key: string]: boolean}>
-  >;
+  passwordState: string;
+  passwordTypeState: string;
+  passwordOptionsState: boolean[];
+  passwordTypeSetter: React.Dispatch<React.SetStateAction<string>>;
+  passwordOptionsSetter: React.Dispatch<React.SetStateAction<boolean[]>>;
 }
 
 const refreshSvg = (
@@ -69,31 +67,18 @@ const Options = (props: OptionsProps) => {
         title={props.dropdownTitles[0]}
         values={props.dropdownValues[0]}
         className={props.dropdownClasses[0]}
-        state={props.passwordType}
-        setter={props.setPasswordType}
+        passwordTypeState={props.passwordTypeState}
+        passwordTypeSetter={props.passwordTypeSetter}
         type="radio"
-        changeFunc={(event: React.ChangeEvent<HTMLInputElement>) => {
-          event.preventDefault();
-          props.setPasswordType(event.target.value);
-          console.log(props.passwordType);
-        }}
       />
       <Dropdown
         temp_idx={1}
         title={props.dropdownTitles[1]}
         values={props.dropdownValues[1]}
         className={props.dropdownClasses[1]}
-        state={props.passwordOptions}
-        setter={props.setPasswordOptions}
+        passwordOptionsState={props.passwordOptionsState}
+        passwordOptionsSetter={props.passwordOptionsSetter}
         type="checkbox"
-        changeFunc={(event: React.ChangeEvent<HTMLInputElement>) => {
-          event.preventDefault();
-          const map = props.passwordOptions;
-          const val = map[event.target.id];
-          map[event.target.id] = !val;
-          props.setPasswordOptions(map);
-          console.log(props.passwordOptions);
-        }}
       />
       <Button
         // title="Refresh Generated Password"
@@ -107,8 +92,8 @@ const Options = (props: OptionsProps) => {
         className="btn btn-outline btn-accent"
         svgCode={copySvg}
         clickFunc={() => {
-          console.log(props.password);
-          navigator.clipboard.writeText(props.password);
+          console.log(props.passwordState);
+          navigator.clipboard.writeText(props.passwordState);
         }}
       />
     </div>
