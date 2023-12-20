@@ -8,14 +8,38 @@ const generatePassword = (
     isChecked: boolean;
   }[]
 ) => {
-  console.log(`the requested length is ${length}`);
-  console.log(`the requested type is ${type}`);
-  console.log(`the requested options are ${options}`);
 
-  return generate({
+  // console.log(type);
+
+
+  const args = {
     length: length,
-    numbers: true
-  });
+    numbers: true,
+    symbols: true,
+    lowercase: true,
+    uppercase: true,
+    excludeSimilarCharacters: true,
+    exclude: '',
+    strict: true
+  };
+
+  if (type === "Alphabetical") {
+    args.numbers = false;
+    args.symbols = false;
+    // console.log(args);
+  } else if (type === "Numeric") {
+    args.symbols = false;
+    args.lowercase = false;
+    args.uppercase = false;
+  }
+  // else if (type === "Catchy") {
+  //   console.log("TODO...");
+  // }
+
+  // console.log(`the requested type is ${type}`);
+  // console.log(`the requested options are ${options}`);
+
+  return generate(args);
 };
 
 export default generatePassword;

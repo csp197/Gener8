@@ -1,6 +1,4 @@
 import { useState } from "react";
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 // import './App.css'
 
 import Header from "./components/Header/Header";
@@ -14,8 +12,8 @@ function App() {
     password,
     // setPassword
   ] = useState("");
-  const [passwordType, setPasswordType] = useState("");
-  const [passwordLength, setPasswordLength] = useState(5);
+  const [passwordType, setPasswordType] = useState("Alphanumeric");
+  const [passwordLength, setPasswordLength] = useState(20);
 
   const options = [
     // options: {
@@ -24,10 +22,10 @@ function App() {
     // 3: false, // nums
     // 4: false, // punc
     // },
-    { id: 1, value: "uppercase", isChecked: false },
-    { id: 2, value: "lowercase", isChecked: false },
-    { id: 3, value: "numbers", isChecked: false },
-    { id: 4, value: "punctuation", isChecked: false },
+    { id: 1, value: "Uppercase", isChecked: false },
+    { id: 2, value: "Lowercase", isChecked: false },
+    { id: 3, value: "Numbers", isChecked: false },
+    { id: 4, value: "Symbols", isChecked: false },
   ];
   // };
 
@@ -37,12 +35,17 @@ function App() {
     // <div className="flex flex-col items-center justify-center min-h-screen">
     <>
       <Header />
-      <PasswordField passwordState={password} />
+      <PasswordField
+        passwordState={password}
+        passwordLength={passwordLength}
+        passwordType={passwordType}
+        passwordOptions={passwordOptions}
+      />
       <Options // idx of dropdownArr are correlated with each other
         dropdownTitles={["Password Type:", "Options:"]}
         dropdownValues={[
-          ["Alphanumeric", "Alphabetical", "Numeric", "Catchy"],
-          ["Uppercase", "Lowercase", "Numbers", "Punctuation"],
+          ["Alphanumeric", "Alphabetical", "Numerical"], //, "Catchy"],
+          ["Uppercase", "Lowercase", "Numbers", "Symbols"],
         ]}
         dropdownClasses={["btn-info", "btn-warning"]}
         passwordState={password}
@@ -53,7 +56,7 @@ function App() {
       />
       <RangeSlider
         min={3}
-        max={50}
+        max={175}
         state={passwordLength}
         setter={setPasswordLength}
       />

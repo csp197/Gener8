@@ -4,10 +4,21 @@ import generatePassword from "../../core/generatePassword";
 
 interface PasswordFieldProps {
   passwordState: string;
+  passwordLength: number;
+  passwordType: string;
+  passwordOptions: {
+    id: number;
+    value: string;
+    isChecked: boolean;
+  }[];
 }
 
 const PasswordField = (props: PasswordFieldProps) => {
-  const test = generatePassword(10, "test", [true, false]);
+  const generatedPassword = generatePassword(
+    props.passwordLength,
+    props.passwordType,
+    props.passwordOptions
+  );
   return (
     <div className="mb-6">
       {/* <label
@@ -21,7 +32,7 @@ const PasswordField = (props: PasswordFieldProps) => {
         id="success"
         className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
         // placeholder={props.passwordState}
-        placeholder={test}
+        placeholder={generatedPassword}
       />
       {/* {password === "true" ? } */}
       <p className="mt-2 text-sm text-green-600 dark:text-green-500">

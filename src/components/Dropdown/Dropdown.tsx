@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Button from "../Button/Button";
 
 interface DropdownProps {
@@ -47,6 +48,8 @@ const dropDownArrowSvgCode = (
 );
 
 const Dropdown = (props: DropdownProps) => {
+  const [selectedType, setSelectedType] = useState("Alphanumeric");
+
   let curr: {
     id: number;
     value: string;
@@ -111,16 +114,16 @@ const Dropdown = (props: DropdownProps) => {
                     <input
                       id={index.toString()}
                       type="radio"
-                      value=""
+                      value={value}
+                      checked={selectedType === value}
                       onChange={(
                         event: React.ChangeEvent<HTMLInputElement>
                       ) => {
-                        // event.preventDefault();
-                        console.log(event);
-                        // const setFunc = props.passwordTypeSetter;
-                        // if (typeof setFunc != "undefined") {
-                        //   setFunc(event.target.value);
-                        // }
+                        setSelectedType(event.target.value);
+                        const setFunc = props.passwordTypeSetter;
+                        if (typeof setFunc != "undefined") {
+                          setFunc(event.target.value);
+                        }
                         // console.log(props.passwordTypeState);
                       }}
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
@@ -130,22 +133,26 @@ const Dropdown = (props: DropdownProps) => {
                       checked={curr[index].isChecked}
                       id={index.toString()}
                       type="checkbox"
-                      value=""
+                      value={value}
                       onChange={(
                         event: React.ChangeEvent<HTMLInputElement>
                       ) => {
+                        console.log(event);
                         // event.preventDefault();
                         const id = parseInt(event.target.id);
-                        let passwordOptionsState;
+
                         if (
                           typeof props.passwordOptionsState != "undefined" &&
                           typeof props.passwordOptionsSetter != "undefined"
                         ) {
-                          passwordOptionsState = props.passwordOptionsState;
-                          const curr = passwordOptionsState[id];
-                          passwordOptionsState[id].isChecked = !curr;
+                          const passwordOptionsState =
+                            props.passwordOptionsState;
+                          const event_target = passwordOptionsState[id];
+                          passwordOptionsState[id].isChecked =
+                            !event_target.isChecked;
                           props.passwordOptionsSetter(passwordOptionsState);
                         }
+                        console.log(props.passwordOptionsState);
                       }}
                       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                     />
