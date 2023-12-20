@@ -10,7 +10,7 @@ interface RangeSliderProps {
 const RangeSlider = (props: RangeSliderProps) => {
   // eslint-disable-next-line
   function handleChange(event: any) {
-    event.preventDefault();
+    // event.preventDefault();
     const value = parseInt(event.target.value);
     props.setter(value);
   }

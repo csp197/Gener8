@@ -9,9 +9,21 @@ interface OptionsProps {
   dropdownClasses: string[];
   passwordState: string;
   passwordTypeState: string;
-  passwordOptionsState: boolean[];
+  passwordOptionsState: {
+    id: number;
+    value: string;
+    isChecked: boolean;
+  }[];
   passwordTypeSetter: React.Dispatch<React.SetStateAction<string>>;
-  passwordOptionsSetter: React.Dispatch<React.SetStateAction<boolean[]>>;
+  passwordOptionsSetter: React.Dispatch<
+    React.SetStateAction<
+      {
+        id: number;
+        value: string;
+        isChecked: boolean;
+      }[]
+    >
+  >;
 }
 
 const refreshSvg = (
@@ -85,6 +97,7 @@ const Options = (props: OptionsProps) => {
         value="Refresh"
         className="btn btn-outline btn-secondary"
         svgCode={refreshSvg}
+        // clickFunc={() => {}} TODO: generate another password (possibly w/o refreshing the browser page)
       />
       <Button
         // title="Copy Generated Password"
@@ -94,6 +107,7 @@ const Options = (props: OptionsProps) => {
         clickFunc={() => {
           console.log(props.passwordState);
           navigator.clipboard.writeText(props.passwordState);
+          // TODO: change text of button to `copied`? to indicate successful copy
         }}
       />
     </div>

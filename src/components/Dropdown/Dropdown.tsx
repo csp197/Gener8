@@ -6,9 +6,21 @@ interface DropdownProps {
   values: string[];
   className: string;
   passwordTypeState?: string;
-  passwordOptionsState?: boolean[];
+  passwordOptionsState?: {
+    id: number;
+    value: string;
+    isChecked: boolean;
+  }[];
   passwordTypeSetter?: React.Dispatch<React.SetStateAction<string>>;
-  passwordOptionsSetter?: React.Dispatch<React.SetStateAction<boolean[]>>;
+  passwordOptionsSetter?: React.Dispatch<
+    React.SetStateAction<
+      {
+        id: number;
+        value: string;
+        isChecked: boolean;
+      }[]
+    >
+  >;
   type: string;
 
   changeFunc?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -35,10 +47,13 @@ const dropDownArrowSvgCode = (
 );
 
 const Dropdown = (props: DropdownProps) => {
+  let curr: {
+    id: number;
+    value: string;
+    isChecked: boolean;
+  }[];
 
-  let curr: boolean[];
-
-  if (typeof props.passwordOptionsState != "undefined"){
+  if (typeof props.passwordOptionsState != "undefined") {
     curr = props.passwordOptionsState;
   }
 
@@ -100,7 +115,7 @@ const Dropdown = (props: DropdownProps) => {
                       onChange={(
                         event: React.ChangeEvent<HTMLInputElement>
                       ) => {
-                        event.preventDefault();
+                        // event.preventDefault();
                         console.log(event);
                         // const setFunc = props.passwordTypeSetter;
                         // if (typeof setFunc != "undefined") {
@@ -112,20 +127,23 @@ const Dropdown = (props: DropdownProps) => {
                     />
                   ) : (
                     <input
-                      checked={curr[index]}
+                      checked={curr[index].isChecked}
                       id={index.toString()}
                       type="checkbox"
                       value=""
                       onChange={(
                         event: React.ChangeEvent<HTMLInputElement>
                       ) => {
-                        event.preventDefault();
+                        // event.preventDefault();
                         const id = parseInt(event.target.id);
                         let passwordOptionsState;
-                        if (typeof props.passwordOptionsState != "undefined" && typeof props.passwordOptionsSetter != "undefined"){
+                        if (
+                          typeof props.passwordOptionsState != "undefined" &&
+                          typeof props.passwordOptionsSetter != "undefined"
+                        ) {
                           passwordOptionsState = props.passwordOptionsState;
                           const curr = passwordOptionsState[id];
-                          passwordOptionsState[id] = !curr;
+                          passwordOptionsState[id].isChecked = !curr;
                           props.passwordOptionsSetter(passwordOptionsState);
                         }
                       }}
@@ -139,37 +157,12 @@ const Dropdown = (props: DropdownProps) => {
                     {value}
                   </label>
                 </div>
-                {/* <a
-                  href="#"
-                  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  {value}
-                </a> */}
               </li>
             );
           })}
         </ul>
       </div>
     </div>
-
-    // <div>
-    //   <label classNameName="block mb-2 text-sm font-medium">Password Type</label>
-    //   {/* Password Type:  */}
-    //   <select
-    //     classNameName="select select-primary w-full max-w-xs"
-    //     value={props.state}
-    //     onChange={(e) => {
-    //       props.setter(e.target.value);
-    //     }}
-    //   >
-    //     {/* <option disabled defaultValue={props.title}>
-    //     {props.title}
-    //   </option> */}
-    //     {props.values.map((value: string, index: number) => {
-    //       return <option key={index}>{value}</option>;
-    //     })}
-    //   </select>
-    // </div>
   );
 };
 

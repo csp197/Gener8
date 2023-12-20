@@ -17,14 +17,19 @@ function App() {
   const [passwordType, setPasswordType] = useState("");
   const [passwordLength, setPasswordLength] = useState(5);
 
-  const options = {
-    options: [
-      { id: 1, value: "uppercase", isChecked: false },
-      { id: 2, value: "lowercase", isChecked: false },
-      { id: 3, value: "numbers", isChecked: false },
-      { id: 4, value: "punctuation", isChecked: false },
-    ],
-  };
+  const options = [
+    // options: {
+    // 1: false, // upper
+    // 2: false, // lower
+    // 3: false, // nums
+    // 4: false, // punc
+    // },
+    { id: 1, value: "uppercase", isChecked: false },
+    { id: 2, value: "lowercase", isChecked: false },
+    { id: 3, value: "numbers", isChecked: false },
+    { id: 4, value: "punctuation", isChecked: false },
+  ];
+  // };
 
   const [passwordOptions, setPasswordOptions] = useState(options);
 
@@ -33,7 +38,7 @@ function App() {
     <>
       <Header />
       <PasswordField passwordState={password} />
-      <Options
+      <Options // idx of dropdownArr are correlated with each other
         dropdownTitles={["Password Type:", "Options:"]}
         dropdownValues={[
           ["Alphanumeric", "Alphabetical", "Numeric", "Catchy"],
