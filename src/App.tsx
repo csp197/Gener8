@@ -1,17 +1,13 @@
 import { useState } from "react";
-// import './App.css'
 
 import Header from "./components/Header/Header";
 // import Footer from "./components/Footer/Footer";
 import PasswordField from "./components/PasswordField/PasswordField";
-import Options from "./components/Options/Options";
+import Selections from "./components/Selections/Selections";
 import RangeSlider from "./components/RangeSlider/RangeSlider";
 
 function App() {
-  const [
-    password,
-    // setPassword
-  ] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordType, setPasswordType] = useState("Alphanumeric");
   const [passwordLength, setPasswordLength] = useState(20);
 
@@ -23,8 +19,8 @@ function App() {
     // 4: false, // punc
     // },
     { id: 1, value: "Uppercase", isChecked: false },
-    { id: 2, value: "Lowercase", isChecked: false },
-    { id: 3, value: "Numbers", isChecked: false },
+    { id: 2, value: "Lowercase", isChecked: true },
+    { id: 3, value: "Numbers", isChecked: true },
     { id: 4, value: "Symbols", isChecked: false },
   ];
   // };
@@ -37,11 +33,12 @@ function App() {
       <Header />
       <PasswordField
         passwordState={password}
+        passwordSetter={setPassword}
         passwordLength={passwordLength}
         passwordType={passwordType}
         passwordOptions={passwordOptions}
       />
-      <Options // idx of dropdownArr are correlated with each other
+      <Selections // idx of dropdownArr are correlated with each other
         dropdownTitles={["Password Type:", "Options:"]}
         dropdownValues={[
           ["Alphanumeric", "Alphabetical", "Numerical"], //, "Catchy"],
@@ -55,8 +52,8 @@ function App() {
         passwordOptionsSetter={setPasswordOptions}
       />
       <RangeSlider
-        min={3}
-        max={175}
+        min={1}
+        max={50}
         state={passwordLength}
         setter={setPasswordLength}
       />

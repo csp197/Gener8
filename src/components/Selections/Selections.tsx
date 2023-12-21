@@ -1,7 +1,8 @@
 import Button from "../Button/Button";
-import Dropdown from "../Dropdown/Dropdown";
+import TypeDropdown from "../Dropdown/TypesDropdown";
+import OptionsDropdown from "../Dropdown/OptionsDropdown";
 
-import "./Options.css";
+import "./Selections.css";
 
 interface OptionsProps {
   dropdownTitles: string[];
@@ -71,33 +72,29 @@ const copySvg = (
   </svg>
 );
 
-const Options = (props: OptionsProps) => {
+const Selections = (props: OptionsProps) => {
   return (
     <div className="flex-container">
-      <Dropdown
-        temp_idx={0}
+      <TypeDropdown
         title={props.dropdownTitles[0]}
         values={props.dropdownValues[0]}
         className={props.dropdownClasses[0]}
         passwordTypeState={props.passwordTypeState}
         passwordTypeSetter={props.passwordTypeSetter}
-        type="radio"
       />
-      <Dropdown
-        temp_idx={1}
+      <OptionsDropdown
         title={props.dropdownTitles[1]}
         values={props.dropdownValues[1]}
         className={props.dropdownClasses[1]}
         passwordOptionsState={props.passwordOptionsState}
         passwordOptionsSetter={props.passwordOptionsSetter}
-        type="checkbox"
       />
       <Button
         // title="Refresh Generated Password"
         value="Refresh"
         className="btn btn-outline btn-secondary"
         svgCode={refreshSvg}
-        // clickFunc={() => {}} TODO: generate another password (possibly w/o refreshing the browser page)
+        clickFunc={() => {}} // TODO: generate another password (possibly w/o refreshing the browser page)
       />
       <Button
         // title="Copy Generated Password"
@@ -114,4 +111,4 @@ const Options = (props: OptionsProps) => {
   );
 };
 
-export default Options;
+export default Selections;
