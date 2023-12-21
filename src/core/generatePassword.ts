@@ -20,6 +20,23 @@ const generatePassword = (
     strict: true
   };
 
+  if (type === "Alphanumeric") {
+    args.symbols = false;
+    args.lowercase = true;
+    args.uppercase = true;
+    args.numbers = true;
+  } else if (type === "Alphabetical") {
+    args.numbers = false;
+    args.symbols = false;
+    args.uppercase = true;
+    args.lowercase = true;
+  } else if (type === "Numeric") {
+    args.symbols = false;
+    args.lowercase = false;
+    args.uppercase = false;
+    args.numbers = true;
+  }
+
   options.map(option => {
     console.log(option);
     if (option.isChecked) {
@@ -35,16 +52,6 @@ const generatePassword = (
       }
     }
   })
-
-  if (type === "Alphabetical") {
-    args.numbers = false;
-    args.symbols = false;
-    // console.log(args);
-  } else if (type === "Numeric") {
-    args.symbols = false;
-    args.lowercase = false;
-    args.uppercase = false;
-  }
 
   console.log(args);
   if (!(args.numbers || args.symbols || args.lowercase || args.uppercase)) {
