@@ -11,18 +11,14 @@ function App() {
   const [passwordType, setPasswordType] = useState("Alphanumeric");
   const [passwordLength, setPasswordLength] = useState(20);
 
-  const options = [
-    // options: {
-    // 1: false, // upper
-    // 2: false, // lower
-    // 3: false, // nums
-    // 4: false, // punc
-    // },
-    { id: 1, value: "Uppercase", isChecked: false },
-    { id: 2, value: "Lowercase", isChecked: true },
-    { id: 3, value: "Numbers", isChecked: true },
-    { id: 4, value: "Symbols", isChecked: false },
-  ];
+  const options = {
+    params: [
+      { id: 1, value: "Uppercase", isChecked: false },
+      { id: 2, value: "Lowercase", isChecked: true },
+      { id: 3, value: "Numbers", isChecked: true },
+      { id: 4, value: "Symbols", isChecked: false },
+    ],
+  };
   // };
 
   const [passwordOptions, setPasswordOptions] = useState(options);

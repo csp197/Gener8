@@ -3,10 +3,12 @@ import randomInt from '../utils/random-int';
 
 const generatePassword = (
   length: number, type: string, options: {
-    id: number;
-    value: string;
-    isChecked: boolean;
-  }[]
+    params: {
+      id: number;
+      value: string;
+      isChecked: boolean;
+    }[];
+  }
 ) => {
 
   const args = {
@@ -37,7 +39,7 @@ const generatePassword = (
     args.numbers = true;
   }
 
-  options.map(option => {
+  options.params.map(option => {
     console.log(option);
     if (option.isChecked) {
       if (option.value === "Uppercase") {

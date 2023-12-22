@@ -11,19 +11,21 @@ interface OptionsProps {
   passwordState: string;
   passwordTypeState: string;
   passwordOptionsState: {
-    id: number;
-    value: string;
-    isChecked: boolean;
-  }[];
+    params: {
+      id: number;
+      value: string;
+      isChecked: boolean;
+    }[];
+  };
   passwordTypeSetter: React.Dispatch<React.SetStateAction<string>>;
   passwordOptionsSetter: React.Dispatch<
-    React.SetStateAction<
-      {
+    React.SetStateAction<{
+      params: {
         id: number;
         value: string;
         isChecked: boolean;
-      }[]
-    >
+      }[];
+    }>
   >;
 }
 

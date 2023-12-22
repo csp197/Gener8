@@ -8,7 +8,7 @@ interface ButtonProps {
   dropdownToggle?: string;
   dropdownTrigger?: string;
 
-  clickFunc: () => void;
+  clickFunc?: () => void;
 }
 
 const Button = (props: ButtonProps) => {

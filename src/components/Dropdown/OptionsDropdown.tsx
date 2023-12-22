@@ -5,18 +5,20 @@ interface IOptionsDropdownProps {
   values: string[];
   className: string;
   passwordOptionsState: {
-    id: number;
-    value: string;
-    isChecked: boolean;
-  }[];
+    params: {
+      id: number;
+      value: string;
+      isChecked: boolean;
+    }[];
+  };
   passwordOptionsSetter: React.Dispatch<
-    React.SetStateAction<
-      {
+    React.SetStateAction<{
+      params: {
         id: number;
         value: string;
         isChecked: boolean;
-      }[]
-    >
+      }[];
+    }>
   >;
 }
 
@@ -42,9 +44,10 @@ const dropDownArrowSvgCode = (
 
 const OptionsDropdown = (props: IOptionsDropdownProps) => {
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    console.log(event);
     const id = parseInt(event.target.id);
     const curr = props.passwordOptionsState;
-    curr[id].isChecked = !curr[id].isChecked;
+    curr.params[id].isChecked = !curr.params[id].isChecked;
     props.passwordOptionsSetter(curr);
   }
 
@@ -71,7 +74,7 @@ const OptionsDropdown = (props: IOptionsDropdownProps) => {
               <li key={index}>
                 <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
                   <input
-                    checked={props.passwordOptionsState[index].isChecked}
+                    checked={props.passwordOptionsState.params[index].isChecked}
                     id={index.toString()}
                     type="checkbox"
                     value={value}

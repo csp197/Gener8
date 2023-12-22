@@ -6,10 +6,12 @@ interface IPasswordFieldProps {
   passwordLength: number;
   passwordType: string;
   passwordOptions: {
-    id: number;
-    value: string;
-    isChecked: boolean;
-  }[];
+    params: {
+      id: number;
+      value: string;
+      isChecked: boolean;
+    }[];
+  };
 }
 
 const PasswordField = (props: IPasswordFieldProps) => {
