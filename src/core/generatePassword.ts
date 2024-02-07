@@ -1,18 +1,17 @@
 import { generate } from 'generate-password-ts';
 import randomInt from '../utils/random-int';
 
-const generatePassword = (
-  length: number, type: string, options: {
-    params: {
-      id: number;
-      value: string;
-      isChecked: boolean;
-    }[];
-  }
+const generatePassword = (type: string, options: {
+  params: {
+    id: number;
+    value: string;
+    isChecked: boolean;
+  }[];
+}, MAX_SIZE: number
 ) => {
 
   const args = {
-    length: length < 10 ? 10 : length,
+    length: MAX_SIZE,
     numbers: false,
     symbols: false,
     lowercase: false,
@@ -28,10 +27,10 @@ const generatePassword = (
     args.uppercase = true;
     args.numbers = true;
   } else if (type === "Alphabetical") {
-    args.numbers = false;
     args.symbols = false;
-    args.uppercase = true;
     args.lowercase = true;
+    args.uppercase = true;
+    args.numbers = false;
   } else if (type === "Numeric") {
     args.symbols = false;
     args.lowercase = false;
@@ -40,7 +39,7 @@ const generatePassword = (
   }
 
   options.params.map(option => {
-    console.log(option);
+    // console.log(option);
     if (option.isChecked) {
       if (option.value === "Uppercase") {
         args.uppercase = true;
@@ -55,7 +54,7 @@ const generatePassword = (
     }
   })
 
-  console.log(args);
+  // console.log(args);
   if (!(args.numbers || args.symbols || args.lowercase || args.uppercase)) {
     let err_str = "ERROR - At least one option must be selected";
     if (randomInt(0, 10) % 2 == 0) {
@@ -64,7 +63,7 @@ const generatePassword = (
     return err_str;
   }
 
-  return generate(args).slice(0, length);
+  return generate(args);
 };
 
 export default generatePassword;

@@ -1,24 +1,29 @@
 interface IRangeSliderProps {
   min: number;
   max: number;
-  state: number;
-  setter: React.Dispatch<React.SetStateAction<number>>;
+  passwordLength: number;
+  passwordLengthSetter: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const RangeSlider = (props: IRangeSliderProps) => {
+const RangeSlider = ({
+  min,
+  max,
+  passwordLength,
+  passwordLengthSetter,
+}: IRangeSliderProps) => {
   return (
     <div className="py-9">
       <label className="block mb-2 text-sm font-medium">
-        Length: {props.state}
+        Length: {passwordLength}
       </label>
       <input
         type="range"
-        min={props.min}
-        max={props.max.toString()}
-        value={props.state.toString()}
+        min={min}
+        max={max.toString()}
+        value={passwordLength.toString()}
         className="range range-error"
         onChange={(event) => {
-          props.setter(parseInt(event.target.value));
+          passwordLengthSetter(parseInt(event.target.value));
         }}
       />
     </div>

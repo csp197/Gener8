@@ -2,15 +2,19 @@ import Button from "../Button/Button";
 import TypeDropdown from "../Dropdown/TypesDropdown";
 import OptionsDropdown from "../Dropdown/OptionsDropdown";
 
+// import generatePassword from "../../core/generatePassword";
+
 import "./Selections.css";
 
-interface OptionsProps {
+interface IOptionsProps {
   dropdownTitles: string[];
   dropdownValues: string[][];
   dropdownClasses: string[];
   passwordState: string;
-  passwordTypeState: string;
-  passwordOptionsState: {
+  passwordSetter: React.Dispatch<React.SetStateAction<string>>;
+  passwordType: string;
+  passwordLength: number;
+  passwordOptions: {
     params: {
       id: number;
       value: string;
@@ -74,29 +78,50 @@ const copySvg = (
   </svg>
 );
 
-const Selections = (props: OptionsProps) => {
+const Selections = ({
+  dropdownTitles,
+  dropdownValues,
+  dropdownClasses,
+  passwordState,
+  passwordSetter,
+  passwordType,
+  passwordOptions,
+  passwordLength,
+  passwordTypeSetter,
+  passwordOptionsSetter,
+}: IOptionsProps) => {
+  const handleClick = () => {
+    // const pass = generatePassword(
+    //   // passwordLength,
+    //   passwordType,
+    //   passwordOptions
+    // );
+    // passwordSetter(pass);
+    console.log("REFRESH");
+  };
+
   return (
     <div className="flex-container">
       <TypeDropdown
-        title={props.dropdownTitles[0]}
-        values={props.dropdownValues[0]}
-        className={props.dropdownClasses[0]}
-        passwordTypeState={props.passwordTypeState}
-        passwordTypeSetter={props.passwordTypeSetter}
+        title={dropdownTitles[0]}
+        values={dropdownValues[0]}
+        className={dropdownClasses[0]}
+        passwordTypeState={passwordType}
+        passwordTypeSetter={passwordTypeSetter}
       />
       <OptionsDropdown
-        title={props.dropdownTitles[1]}
-        values={props.dropdownValues[1]}
-        className={props.dropdownClasses[1]}
-        passwordOptionsState={props.passwordOptionsState}
-        passwordOptionsSetter={props.passwordOptionsSetter}
+        title={dropdownTitles[1]}
+        values={dropdownValues[1]}
+        className={dropdownClasses[1]}
+        passwordOptionsState={passwordOptions}
+        passwordOptionsSetter={passwordOptionsSetter}
       />
       <Button
         // title="Refresh Generated Password"
         value="Refresh"
         className="btn btn-outline btn-secondary"
         svgCode={refreshSvg}
-        clickFunc={() => {}} // TODO: generate another password (possibly w/o refreshing the browser page)
+        clickFunc={handleClick} // TODO: generate another password (possibly w/o refreshing the browser page)
       />
       <Button
         // title="Copy Generated Password"
@@ -104,8 +129,8 @@ const Selections = (props: OptionsProps) => {
         className="btn btn-outline btn-accent"
         svgCode={copySvg}
         clickFunc={() => {
-          console.log(props.passwordState);
-          navigator.clipboard.writeText(props.passwordState);
+          console.log(passwordState);
+          navigator.clipboard.writeText(passwordState);
           // TODO: change text of button to `copied`? to indicate successful copy
         }}
       />

@@ -1,4 +1,4 @@
-import generatePassword from "../../core/generatePassword";
+// import generatePassword from "../../core/generatePassword";
 
 interface IPasswordFieldProps {
   passwordState: string;
@@ -14,13 +14,16 @@ interface IPasswordFieldProps {
   };
 }
 
-const PasswordField = (props: IPasswordFieldProps) => {
-  const generatedPass = generatePassword(
-    props.passwordLength,
-    props.passwordType,
-    props.passwordOptions
-  );
-  // props.passwordSetter(generatedPass);
+const PasswordField = ({
+  passwordState,
+  passwordSetter,
+  passwordLength,
+  passwordType,
+  passwordOptions,
+}: IPasswordFieldProps) => {
+  // passwordSetter(
+  //   generatePassword(passwordLength, passwordType, passwordOptions)
+  // );
 
   return (
     <div className="mb-6">
@@ -36,7 +39,7 @@ const PasswordField = (props: IPasswordFieldProps) => {
         id="success"
         className="bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
       >
-        {generatedPass}
+        {passwordState.slice(0, passwordLength)}
       </div>
       {/* {password === "true" ? } */}
       <p className="mt-2 text-sm text-green-600 dark:text-green-500">

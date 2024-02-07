@@ -5,23 +5,26 @@ import Header from "./components/Header/Header";
 import PasswordField from "./components/PasswordField/PasswordField";
 import Selections from "./components/Selections/Selections";
 import RangeSlider from "./components/RangeSlider/RangeSlider";
+import generatePassword from "./core/generatePassword";
 
 function App() {
-  const [password, setPassword] = useState("");
-  const [passwordType, setPasswordType] = useState("Alphanumeric");
-  const [passwordLength, setPasswordLength] = useState(20);
 
-  const options = {
+  const MIN_PASS_SIZE = 1;
+  const MAX_PASS_SIZE = 150;
+
+  const [passwordLength, setPasswordLength] = useState(20);
+  const [passwordType, setPasswordType] = useState("Alphanumeric");
+  const [passwordOptions, setPasswordOptions] = useState({
     params: [
       { id: 1, value: "Uppercase", isChecked: false },
       { id: 2, value: "Lowercase", isChecked: true },
       { id: 3, value: "Numbers", isChecked: true },
       { id: 4, value: "Symbols", isChecked: false },
     ],
-  };
-  // };
-
-  const [passwordOptions, setPasswordOptions] = useState(options);
+  });
+  const [password, setPassword] = useState(
+    generatePassword(passwordType, passwordOptions, MAX_PASS_SIZE)
+  );
 
   return (
     // <div className="flex flex-col items-center justify-center min-h-screen">
@@ -42,16 +45,18 @@ function App() {
         ]}
         dropdownClasses={["btn-info", "btn-warning"]}
         passwordState={password}
-        passwordTypeState={passwordType}
-        passwordOptionsState={passwordOptions}
+        passwordSetter={setPassword}
+        passwordType={passwordType}
+        passwordLength={passwordLength}
+        passwordOptions={passwordOptions}
         passwordTypeSetter={setPasswordType}
         passwordOptionsSetter={setPasswordOptions}
       />
       <RangeSlider
-        min={1}
-        max={50}
-        state={passwordLength}
-        setter={setPasswordLength}
+        min={MIN_PASS_SIZE}
+        max={MAX_PASS_SIZE}
+        passwordLength={passwordLength}
+        passwordLengthSetter={setPasswordLength}
       />
       {/* <Footer /> */}
     </>

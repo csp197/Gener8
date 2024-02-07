@@ -47,8 +47,9 @@ const OptionsDropdown = (props: IOptionsDropdownProps) => {
     console.log(event);
     const id = parseInt(event.target.id);
     const curr = props.passwordOptionsState;
-    curr.params[id].isChecked = !curr.params[id].isChecked;
+    curr.params[id].isChecked = event.target.checked;
     props.passwordOptionsSetter(curr);
+    console.log(props);
   }
 
   return (
@@ -74,11 +75,11 @@ const OptionsDropdown = (props: IOptionsDropdownProps) => {
               <li key={index}>
                 <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
                   <input
+                    onChange={handleChange}
+                    type="checkbox"
                     checked={props.passwordOptionsState.params[index].isChecked}
                     id={index.toString()}
-                    type="checkbox"
                     value={value}
-                    onChange={handleChange}
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                   />
                   <label

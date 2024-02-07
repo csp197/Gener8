@@ -1,4 +1,4 @@
-interface ButtonProps {
+interface IButtonProps {
   title?: string;
   value: string;
   className: string;
@@ -8,10 +8,11 @@ interface ButtonProps {
   dropdownToggle?: string;
   dropdownTrigger?: string;
 
-  clickFunc?: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  clickFunc?: any;
 }
 
-const Button = (props: ButtonProps) => {
+const Button = (props: IButtonProps) => {
   return (
     <div>
       <label className="block mb-2 text-sm font-medium">{props.title}</label>
