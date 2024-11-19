@@ -8,8 +8,7 @@ interface IButtonProps {
   dropdownToggle?: string;
   dropdownTrigger?: string;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  clickFunc?: any;
+  clickFunc?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button = (props: IButtonProps) => {

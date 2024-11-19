@@ -1,23 +1,15 @@
 import Button from "../Button/Button";
 
-interface IOptionsDropdownProps {
+export interface IOptionsDropdownProps {
   title: string;
   values: string[];
   className: string;
-  passwordOptionsState: {
-    params: {
-      id: number;
-      value: string;
-      isChecked: boolean;
-    }[];
+  passwordOptions: {
+    params: Array<{ id: number; value: string; isChecked: boolean }>;
   };
-  passwordOptionsSetter: React.Dispatch<
+  setPasswordOptions: React.Dispatch<
     React.SetStateAction<{
-      params: {
-        id: number;
-        value: string;
-        isChecked: boolean;
-      }[];
+      params: Array<{ id: number; value: string; isChecked: boolean }>;
     }>
   >;
 }
@@ -42,13 +34,31 @@ const dropDownArrowSvgCode = (
   </svg>
 );
 
-const OptionsDropdown = (props: IOptionsDropdownProps) => {
+/**
+ * A dropdown component that allows users to select password options.
+ *
+ * @param {IOptionsDropdownProps} props - The properties for the OptionsDropdown component.
+ * @param {string} props.title - The title of the dropdown button.
+ * @param {string[]} props.values - The possible values for the password options.
+ * @param {string} props.className - The additional class names for styling the button.
+ * @param {{params: Array<{id: number; value: string; isChecked: boolean}>}} props.passwordOptions - The current state of the selected password options.
+ * @param {React.Dispatch<React.SetStateAction<{{params: Array<{id: number; value: string; isChecked: boolean}>}}>>} props.setPasswordOptions - The setter function to update the selected password options.
+ *
+ * @returns {JSX.Element} The rendered OptionsDropdown component.
+ */
+const OptionsDropdown = (props: IOptionsDropdownProps): JSX.Element => {
+  /**
+   * Handles the change event when a user clicks on one of the password option checkboxes.
+   * Updates the state of the selected password options.
+   *
+   * @param {React.ChangeEvent<HTMLInputElement>} event - The change event for the input element.
+   */
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     console.log(event);
     const id = parseInt(event.target.id);
-    const curr = props.passwordOptionsState;
+    const curr = props.passwordOptions;
     curr.params[id].isChecked = event.target.checked;
-    props.passwordOptionsSetter(curr);
+    props.setPasswordOptions(curr);
     console.log(props);
   }
 
@@ -77,7 +87,7 @@ const OptionsDropdown = (props: IOptionsDropdownProps) => {
                   <input
                     onChange={handleChange}
                     type="checkbox"
-                    checked={props.passwordOptionsState.params[index].isChecked}
+                    checked={props.passwordOptions.params[index].isChecked}
                     id={index.toString()}
                     value={value}
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"

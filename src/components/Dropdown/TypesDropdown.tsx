@@ -1,13 +1,14 @@
 import Button from "../Button/Button";
 
-interface ITypeDropdownProps {
+export interface ITypeDropdownProps {
   title: string;
   values: string[];
   className: string;
-  passwordTypeState: string;
-  passwordTypeSetter: React.Dispatch<React.SetStateAction<string>>;
+  passwordType: string;
+  setPasswordType: React.Dispatch<React.SetStateAction<string>>;
 }
 
+// TODO: place in separate file in utils dir
 const dropDownArrowSvgCode = (
   <svg
     className="w-2.5 h-2.5 ml-2.5"
@@ -28,6 +29,18 @@ const dropDownArrowSvgCode = (
   </svg>
 );
 
+/**
+ * A dropdown component that allows users to select a password type.
+ *
+ * @param {ITypeDropdownProps} props - The properties for the TypeDropdown component.
+ * @param {string} props.title - The title of the dropdown button.
+ * @param {string[]} props.values - The possible values for the password type.
+ * @param {string} props.className - The additional class names for styling the button.
+ * @param {string} props.passwordTypeState - The current state of the selected password type.
+ * @param {React.Dispatch<React.SetStateAction<string>>} props.passwordTypeSetter - The setter function to update the selected password type.
+ *
+ * @returns {JSX.Element} The rendered TypeDropdown component.
+ */
 const TypeDropdown = (props: ITypeDropdownProps) => {
   return (
     <div>
@@ -55,9 +68,9 @@ const TypeDropdown = (props: ITypeDropdownProps) => {
                     id={index.toString()}
                     type="radio"
                     value={value}
-                    checked={props.passwordTypeState === value}
+                    checked={props.passwordType === value}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                      props.passwordTypeSetter(event.target.value);
+                      props.setPasswordType(event.target.value);
                     }}
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                   />

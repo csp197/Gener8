@@ -1,7 +1,15 @@
 interface ToggleProps {
-    text: string
+  text: string;
 }
 
+/**
+ * A toggle component that displays a checkbox with a label.
+ *
+ * @param {ToggleProps} props - The properties for the Toggle component.
+ * @param {string} props.text - The text to display as the checkbox label.
+ *
+ * @returns {JSX.Element} The rendered Toggle component with a checkbox and label.
+ */
 const Toggle = (props: ToggleProps) => {
   return (
     <>
@@ -25,7 +33,11 @@ const Toggle = (props: ToggleProps) => {
         <div className="form-control w-52">
           <label className="cursor-pointer label">
             <span className="label-text">{props.text}</span>
-            <input type="checkbox" className="toggle toggle-success" checked={false} />
+            <input
+              type="checkbox"
+              className="toggle toggle-success"
+              checked={false}
+            />
           </label>
         </div>
       </div>

@@ -1,6 +1,15 @@
 import { generate } from 'generate-password-ts';
 import randomInt from '../utils/random-int';
 
+/**
+ * Generates a random password based on given type and options.
+ *
+ * @param {string} type - The type of password to generate. Can be Alphanumeric, Alphabetical, or Numeric.
+ * @param {{params: {value: string; isChecked: boolean}[]}} options - The options for generating the password.
+ * @param {number} MAX_SIZE - The maximum length of the generated password.
+ *
+ * @returns {string} The generated password.
+ */
 const generatePassword = (type: string, options: {
   params: {
     value: string;

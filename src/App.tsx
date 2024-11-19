@@ -7,6 +7,23 @@ import Selections from "./components/Selections/Selections";
 import RangeSlider from "./components/RangeSlider/RangeSlider";
 import generatePassword from "./core/generatePassword";
 
+/**
+ * Main application component that renders the password generator interface.
+ * It includes components for displaying and setting the password, selecting
+ * password types and options, and adjusting the password length.
+ *
+ * Uses:
+ * - `Header`: Displays the application header.
+ * - `PasswordField`: Shows the generated password and allows for updates.
+ * - `Selections`: Allows users to select password type and options.
+ * - `RangeSlider`: Adjusts the password length within a defined range.
+ *
+ * State variables:
+ * - `passwordLength`: Number, represents the length of the password.
+ * - `passwordType`: String, type of password (e.g., Alphanumeric, Alphabetical, etc.).
+ * - `passwordOptions`: Object, contains boolean values indicating selected password options.
+ * - `password`: String, the generated password based on the selected options.
+ */
 function App() {
   const MIN_PASS_SIZE = 1;
   const MAX_PASS_SIZE = 150;
