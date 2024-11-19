@@ -23,7 +23,9 @@ const RangeSlider = ({
         value={passwordLength.toString()}
         className="range range-error"
         onChange={(event) => {
-          passwordLengthSetter(parseInt(event.target.value));
+          if (parseInt(event.target.value) >= min) {
+            passwordLengthSetter(parseInt(event.target.value));
+          }
         }}
       />
     </div>

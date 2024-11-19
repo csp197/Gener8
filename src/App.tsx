@@ -8,7 +8,6 @@ import RangeSlider from "./components/RangeSlider/RangeSlider";
 import generatePassword from "./core/generatePassword";
 
 function App() {
-
   const MIN_PASS_SIZE = 1;
   const MAX_PASS_SIZE = 150;
 
@@ -16,14 +15,15 @@ function App() {
   const [passwordType, setPasswordType] = useState("Alphanumeric");
   const [passwordOptions, setPasswordOptions] = useState({
     params: [
-      { id: 1, value: "Uppercase", isChecked: false },
-      { id: 2, value: "Lowercase", isChecked: true },
-      { id: 3, value: "Numbers", isChecked: true },
-      { id: 4, value: "Symbols", isChecked: false },
+      { value: "Uppercase", isChecked: false },
+      { value: "Lowercase", isChecked: true },
+      { value: "Numbers", isChecked: true },
+      { value: "Symbols", isChecked: false },
     ],
   });
+
   const [password, setPassword] = useState(
-    generatePassword(passwordType, passwordOptions, MAX_PASS_SIZE)
+    generatePassword(passwordType, passwordOptions, passwordLength)
   );
 
   return (
@@ -64,3 +64,4 @@ function App() {
 }
 
 export default App;
+// CHECK <React.StrictMode> ! in main.tsx

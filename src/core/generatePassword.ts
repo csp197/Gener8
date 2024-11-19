@@ -3,7 +3,6 @@ import randomInt from '../utils/random-int';
 
 const generatePassword = (type: string, options: {
   params: {
-    id: number;
     value: string;
     isChecked: boolean;
   }[];

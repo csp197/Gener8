@@ -1,8 +1,9 @@
+import { useState } from "react";
+
 import Button from "../Button/Button";
 import TypeDropdown from "../Dropdown/TypesDropdown";
 import OptionsDropdown from "../Dropdown/OptionsDropdown";
-
-// import generatePassword from "../../core/generatePassword";
+import generatePassword from "../../core/generatePassword";
 
 import "./Selections.css";
 
@@ -16,7 +17,6 @@ interface IOptionsProps {
   passwordLength: number;
   passwordOptions: {
     params: {
-      id: number;
       value: string;
       isChecked: boolean;
     }[];
@@ -25,7 +25,6 @@ interface IOptionsProps {
   passwordOptionsSetter: React.Dispatch<
     React.SetStateAction<{
       params: {
-        id: number;
         value: string;
         isChecked: boolean;
       }[];
@@ -90,14 +89,19 @@ const Selections = ({
   passwordTypeSetter,
   passwordOptionsSetter,
 }: IOptionsProps) => {
-  const handleClick = () => {
-    // const pass = generatePassword(
-    //   // passwordLength,
-    //   passwordType,
-    //   passwordOptions
-    // );
-    // passwordSetter(pass);
-    console.log("REFRESH");
+  const [copyButtonName, setCopyButtonName] = useState("Copy");
+
+  const handleClick = async () => {
+    try {
+      const password = generatePassword(
+        passwordType,
+        passwordOptions,
+        passwordLength
+      );
+      passwordSetter(password);
+    } catch (error) {
+      console.error("Error generating password:", error);
+    }
   };
 
   return (
@@ -121,17 +125,17 @@ const Selections = ({
         value="Refresh"
         className="btn btn-outline btn-secondary"
         svgCode={refreshSvg}
-        clickFunc={handleClick} // TODO: generate another password (possibly w/o refreshing the browser page)
+        clickFunc={handleClick}
       />
       <Button
         // title="Copy Generated Password"
-        value="Copy"
+        value={copyButtonName}
         className="btn btn-outline btn-accent"
         svgCode={copySvg}
         clickFunc={() => {
-          console.log(passwordState);
           navigator.clipboard.writeText(passwordState);
-          // TODO: change text of button to `copied`? to indicate successful copy
+          setCopyButtonName("Copied!");
+          setTimeout(() => setCopyButtonName("Copy"), 2000);
         }}
       />
     </div>

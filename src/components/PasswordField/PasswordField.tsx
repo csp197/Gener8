@@ -1,5 +1,3 @@
-// import generatePassword from "../../core/generatePassword";
-
 interface IPasswordFieldProps {
   passwordState: string;
   passwordSetter: React.Dispatch<React.SetStateAction<string>>;
@@ -7,7 +5,6 @@ interface IPasswordFieldProps {
   passwordType: string;
   passwordOptions: {
     params: {
-      id: number;
       value: string;
       isChecked: boolean;
     }[];
@@ -16,15 +13,8 @@ interface IPasswordFieldProps {
 
 const PasswordField = ({
   passwordState,
-  passwordSetter,
   passwordLength,
-  passwordType,
-  passwordOptions,
 }: IPasswordFieldProps) => {
-  // passwordSetter(
-  //   generatePassword(passwordLength, passwordType, passwordOptions)
-  // );
-
   return (
     <div className="mb-6">
       {/* <label
