@@ -25,17 +25,17 @@ import generatePassword from "./core/generatePassword";
  * - `password`: String, the generated password based on the selected options.
  */
 function App() {
-  const MIN_PASS_SIZE = 1;
+  const MIN_PASS_SIZE = 3;
   const MAX_PASS_SIZE = 150;
 
   const [passwordLength, setPasswordLength] = useState(20);
   const [passwordType, setPasswordType] = useState("Alphanumeric");
   const [passwordOptions, setPasswordOptions] = useState({
     params: [
-      { value: "Uppercase", isChecked: false },
-      { value: "Lowercase", isChecked: true },
-      { value: "Numbers", isChecked: true },
-      { value: "Symbols", isChecked: false },
+      { id: 0, value: "Uppercase", isChecked: false },
+      { id: 1, value: "Lowercase", isChecked: true },
+      { id: 2, value: "Numbers", isChecked: true },
+      { id: 3, value: "Symbols", isChecked: false },
     ],
   });
 
@@ -50,8 +50,8 @@ function App() {
       <PasswordField
         passwordState={password}
         passwordSetter={setPassword}
-        passwordLength={passwordLength}
         passwordType={passwordType}
+        passwordLength={passwordLength}
         passwordOptions={passwordOptions}
       />
       <Selections // idx of dropdownArr are correlated with each other

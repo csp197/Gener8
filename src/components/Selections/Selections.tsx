@@ -17,6 +17,7 @@ interface IOptionsProps {
   passwordLength: number;
   passwordOptions: {
     params: {
+      id: number;
       value: string;
       isChecked: boolean;
     }[];
@@ -25,6 +26,7 @@ interface IOptionsProps {
   passwordOptionsSetter: React.Dispatch<
     React.SetStateAction<{
       params: {
+        id: number;
         value: string;
         isChecked: boolean;
       }[];
@@ -110,15 +112,15 @@ const Selections = ({
         title={dropdownTitles[0]}
         values={dropdownValues[0]}
         className={dropdownClasses[0]}
-        passwordTypeState={passwordType}
-        passwordTypeSetter={passwordTypeSetter}
+        passwordType={passwordType}
+        setPasswordType={passwordTypeSetter}
       />
       <OptionsDropdown
         title={dropdownTitles[1]}
         values={dropdownValues[1]}
         className={dropdownClasses[1]}
-        passwordOptionsState={passwordOptions}
-        passwordOptionsSetter={passwordOptionsSetter}
+        passwordOptions={passwordOptions}
+        setPasswordOptions={passwordOptionsSetter}
       />
       <Button
         // title="Refresh Generated Password"

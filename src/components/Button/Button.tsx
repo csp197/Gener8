@@ -1,3 +1,5 @@
+import "./Button.css";
+
 interface IButtonProps {
   title?: string;
   value: string;
@@ -20,7 +22,7 @@ const Button = (props: IButtonProps) => {
           id={props?.id}
           data-dropdown-toggle={props?.dropdownToggle}
           data-dropdown-trigger={props?.dropdownTrigger}
-          className={props.className}
+          className={"button" + " " + props.className}
           onClick={props.clickFunc}
         >
           {props.value}
