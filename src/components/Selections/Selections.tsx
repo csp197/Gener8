@@ -79,6 +79,23 @@ const copySvg = (
   </svg>
 );
 
+/**
+ * A component that provides controls for selecting password type and options,
+ * as well as buttons for generating and copying the password.
+ *
+ * @param {string[]} dropdownTitles - Titles for the dropdown components.
+ * @param {string[][]} dropdownValues - Values for the dropdown options.
+ * @param {string[]} dropdownClasses - Additional class names for styling the dropdowns.
+ * @param {string} passwordState - The current state of the generated password.
+ * @param {React.Dispatch<React.SetStateAction<string>>} passwordSetter - Setter function to update the password state.
+ * @param {string} passwordType - The current type of the password.
+ * @param {Object} passwordOptions - Options object containing parameters for password generation.
+ * @param {number} passwordLength - The length of the password to be generated.
+ * @param {React.Dispatch<React.SetStateAction<string>>} passwordTypeSetter - Setter function to update the password type.
+ * @param {React.Dispatch<React.SetStateAction<{params: {id: number; value: string; isChecked: boolean;}[];}>>} passwordOptionsSetter - Setter function to update the password options.
+ *
+ * @returns {JSX.Element} The rendered Selections component.
+ */
 const Selections = ({
   dropdownTitles,
   dropdownValues,

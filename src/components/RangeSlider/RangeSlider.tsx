@@ -5,6 +5,16 @@ interface IRangeSliderProps {
   passwordLengthSetter: React.Dispatch<React.SetStateAction<number>>;
 }
 
+/**
+ * RangeSlider component that provides a slider input for adjusting the password length.
+ *
+ * @param {number} min - The minimum value for the range slider.
+ * @param {number} max - The maximum value for the range slider.
+ * @param {number} passwordLength - The current length of the password, representing the slider's current position.
+ * @param {React.Dispatch<React.SetStateAction<number>>} passwordLengthSetter - The setter function to update the password length.
+ *
+ * @returns {JSX.Element} The rendered RangeSlider component with a label and input slider.
+ */
 const RangeSlider = ({
   min,
   max,
