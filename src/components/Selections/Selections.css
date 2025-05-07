@@ -1,19 +1,37 @@
 .flex-container {
-    /* We first create a flex layout context */
-    display: flex;
-    
-    /* Then we define the flow direction 
+  /* We first create a flex layout context */
+  display: flex;
+
+  /* Then we define the flow direction 
        and if we allow the items to wrap 
      * Remember this is the same as:
      * flex-direction: row;
      * flex-wrap: wrap;
      */
-    flex-flow: row wrap;
-    
-    /* Then we define how is distributed the remaining space */
-    justify-content: space-around;
-    
-    padding: 0;
-    margin: 0;
-    list-style: none;
+  flex-flow: row wrap;
+
+  /* Then we define how is distributed the remaining space */
+  justify-content: space-around;
+
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#refreshSvg {
+  animation: rotate 2s;
+  /* transition: transform 1s; */
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
   }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* .rotated {
+  transform: rotate(360deg);
+} */

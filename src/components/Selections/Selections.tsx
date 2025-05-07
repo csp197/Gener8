@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import Button from "../Button/Button";
 import TypeDropdown from "../Dropdown/TypesDropdown";
@@ -33,23 +33,6 @@ interface IOptionsProps {
     }>
   >;
 }
-
-const refreshSvg = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 32 32"
-    width="16px"
-    height="16px"
-  >
-    <g
-      // transform="translate(0.000000,48.000000) scale(0.100000,-0.100000)"
-      fill="#FFFFFF"
-      // stroke="none"
-    >
-      <path d="M 16 4 C 10.886719 4 6.617188 7.160156 4.875 11.625 L 6.71875 12.375 C 8.175781 8.640625 11.710938 6 16 6 C 19.242188 6 22.132813 7.589844 23.9375 10 L 20 10 L 20 12 L 27 12 L 27 5 L 25 5 L 25 8.09375 C 22.808594 5.582031 19.570313 4 16 4 Z M 25.28125 19.625 C 23.824219 23.359375 20.289063 26 16 26 C 12.722656 26 9.84375 24.386719 8.03125 22 L 12 22 L 12 20 L 5 20 L 5 27 L 7 27 L 7 23.90625 C 9.1875 26.386719 12.394531 28 16 28 C 21.113281 28 25.382813 24.839844 27.125 20.375 Z" />
-    </g>
-  </svg>
-);
 
 const copySvg = (
   <svg
@@ -108,6 +91,27 @@ const Selections = ({
   passwordTypeSetter,
   passwordOptionsSetter,
 }: IOptionsProps) => {
+  const refreshSvgRef = useRef<SVGSVGElement>(null);
+
+  const refreshSvg = (
+    <svg
+      id="refreshSvg"
+      ref={refreshSvgRef}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 32 32"
+      width="16px"
+      height="16px"
+    >
+      <g
+        // transform="translate(0.000000,48.000000) scale(0.100000,-0.100000)"
+        fill="#FFFFFF"
+        // stroke="none"
+      >
+        <path d="M 16 4 C 10.886719 4 6.617188 7.160156 4.875 11.625 L 6.71875 12.375 C 8.175781 8.640625 11.710938 6 16 6 C 19.242188 6 22.132813 7.589844 23.9375 10 L 20 10 L 20 12 L 27 12 L 27 5 L 25 5 L 25 8.09375 C 22.808594 5.582031 19.570313 4 16 4 Z M 25.28125 19.625 C 23.824219 23.359375 20.289063 26 16 26 C 12.722656 26 9.84375 24.386719 8.03125 22 L 12 22 L 12 20 L 5 20 L 5 27 L 7 27 L 7 23.90625 C 9.1875 26.386719 12.394531 28 16 28 C 21.113281 28 25.382813 24.839844 27.125 20.375 Z" />
+      </g>
+    </svg>
+  );
+
   const [copyButtonName, setCopyButtonName] = useState("Copy");
 
   const handleClick = async () => {
@@ -120,6 +124,41 @@ const Selections = ({
       passwordSetter(password);
     } catch (error) {
       console.error("Error generating password:", error);
+    }
+    const svg = refreshSvgRef.current;
+    // try {
+    //   svg = document.getElementById("refreshSvg");
+    // } catch (error) {
+    //   console.error("Error getting svg:", error);
+    // }
+    if (svg) {
+      svg.addEventListener("click", () => {
+        console.log("click");
+        // svg.classList.toggle("rotated");
+        // svg.style.animationPlayState = 'running';
+        svg.style.animation = "rotate 2s";
+      });
+    }
+  };
+
+  // Function to copy the password to clipboard
+  const handleCopy = async () => {
+    try {
+      // Get the truncated password according to the password length
+      const textToCopy = passwordState.slice(0, passwordLength);
+      
+      // Use the Clipboard API to copy text
+      await navigator.clipboard.writeText(textToCopy);
+      
+      // Update button text to show feedback
+      setCopyButtonName("Copied!");
+      
+      // Reset button text after 2 seconds
+      setTimeout(() => setCopyButtonName("Copy"), 2000);
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+      setCopyButtonName("Failed to copy");
+      setTimeout(() => setCopyButtonName("Copy"), 2000);
     }
   };
 
@@ -151,11 +190,7 @@ const Selections = ({
         value={copyButtonName}
         className="btn btn-outline btn-accent"
         svgCode={copySvg}
-        clickFunc={() => {
-          navigator.clipboard.writeText(passwordState);
-          setCopyButtonName("Copied!");
-          setTimeout(() => setCopyButtonName("Copy"), 2000);
-        }}
+        clickFunc={handleCopy}
       />
     </div>
   );
