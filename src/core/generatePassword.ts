@@ -1,10 +1,11 @@
 import { generate } from 'generate-password-ts';
 import randomInt from '../utils/random-int';
+import generatePronounceablePassword from '../utils/pronounceable-generator';
 
 /**
  * Generates a random password based on given type and options.
  *
- * @param {string} type - The type of password to generate. Can be Alphanumeric, Alphabetical, or Numeric.
+ * @param {string} type - The type of password to generate. Can be Alphanumeric, Alphabetical, Numeric, or Pronounceable.
  * @param {{params: {value: string; isChecked: boolean}[]}} options - The options for generating the password.
  * @param {number} MAX_SIZE - The maximum length of the generated password.
  *
@@ -17,7 +18,17 @@ const generatePassword = (type: string, options: {
   }[];
 }, MAX_SIZE: number
 ) => {
+  // Handle Pronounceable password type separately
+  if (type === "Pronounceable") {
+    // Check which options are selected
+    const hasUppercase = options.params.find(opt => opt.value === "Uppercase")?.isChecked || false;
+    const hasNumbers = options.params.find(opt => opt.value === "Numbers")?.isChecked || false;
+    const hasSymbols = options.params.find(opt => opt.value === "Symbols")?.isChecked || false;
+    
+    return generatePronounceablePassword(MAX_SIZE, hasNumbers, hasUppercase, hasSymbols);
+  }
 
+  // Standard password generation for other types
   const args = {
     length: MAX_SIZE,
     numbers: false,
@@ -39,7 +50,7 @@ const generatePassword = (type: string, options: {
     args.lowercase = true;
     args.uppercase = true;
     args.numbers = false;
-  } else if (type === "Numeric") {
+  } else if (type === "Numerical") {
     args.symbols = false;
     args.lowercase = false;
     args.uppercase = false;

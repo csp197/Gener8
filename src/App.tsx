@@ -10,6 +10,10 @@ import Button from "./components/Button/Button";
 import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
 import initializeInteractiveElements from "./utils/dropdown";
 import PasswordStats from "./components/PasswordStats/PasswordStats";
+import PasswordHistory from "./components/PasswordHistory/PasswordHistory";
+import PasswordMnemonic from "./components/PasswordMnemonic/PasswordMnemonic";
+import PasswordBreachCheck from "./components/PasswordBreachCheck/PasswordBreachCheck";
+import usePasswordHistory from "./hooks/usePasswordHistory";
 
 /**
  * Main application component that renders the password generator interface.
@@ -82,8 +86,36 @@ function App() {
     generatePassword(passwordType, passwordOptions, passwordLength)
   );
 
+  // Password history management
+  const { history, addToHistory, clearHistory } = usePasswordHistory();
+
+  // Add initial password to history on first render
+  useEffect(() => {
+    // Only add if history is empty to avoid duplicates on re-renders
+    if (history.length === 0) {
+      addToHistory(
+        password.slice(0, passwordLength),
+        passwordLength,
+        passwordType
+      );
+    }
+  }, []);
+
   const handleCreatePassword = () => {
-    setPassword(generatePassword(passwordType, passwordOptions, passwordLength));
+    const newPassword = generatePassword(passwordType, passwordOptions, passwordLength);
+    setPassword(newPassword);
+    
+    // Add to history when a new password is generated
+    addToHistory(
+      newPassword.slice(0, passwordLength), 
+      passwordLength, 
+      passwordType
+    );
+  };
+
+  // Called when a password is selected from history
+  const handleSelectPassword = (selectedPassword: string) => {
+    setPassword(selectedPassword);
   };
 
   const createPasswordSvg = (
@@ -105,41 +137,53 @@ function App() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col transition-colors duration-300 dark:bg-gray-900 dark:text-white">
-      <div className="absolute top-4 right-4">
-        <ThemeToggle />
-      </div>
-      <Header />
-      <div className="container mx-auto px-4 py-6">
-        <PasswordField
-          passwordState={password}
+    <div className="dark:bg-gray-900 min-h-screen">
+      <div className="container mx-auto px-4 py-8">
+        {/* Theme toggle in top right */}
+        <div className="flex justify-end mb-2">
+          <ThemeToggle />
+        </div>
+        
+        {/* Header centered */}
+        <div className="flex justify-center mb-6">
+          <Header />
+        </div>
+        
+        {/* Password field */}
+        <PasswordField 
+          passwordState={password} 
+          passwordLength={passwordLength}
           passwordSetter={setPassword}
           passwordType={passwordType}
-          passwordLength={passwordLength}
           passwordOptions={passwordOptions}
         />
-        <Selections // idx of dropdownArr are correlated with each other
-          dropdownTitles={["Password Type:", "Options:"]}
+        
+        {/* Password selection controls */}
+        <Selections
+          dropdownTitles={["Type", "Options"]}
           dropdownValues={[
-            ["Alphanumeric", "Alphabetical", "Numerical"], //, "Catchy"],
+            ["Alphabetical", "Alphanumeric", "Numerical", "Pronounceable"],
             ["Uppercase", "Lowercase", "Numbers", "Symbols"],
           ]}
-          dropdownClasses={["btn-info", "btn-warning"]}
+          dropdownClasses={["", ""]}
           passwordState={password}
           passwordSetter={setPassword}
           passwordType={passwordType}
-          passwordLength={passwordLength}
           passwordOptions={passwordOptions}
+          passwordLength={passwordLength}
           passwordTypeSetter={setPasswordType}
           passwordOptionsSetter={setPasswordOptions}
+          addToHistory={addToHistory}
         />
+        
+        {/* Password length slider */}
         <RangeSlider
           min={MIN_PASS_SIZE}
           max={MAX_PASS_SIZE}
           passwordLength={passwordLength}
           passwordLengthSetter={setPasswordLength}
         />
-
+        
         {/* Password statistics */}
         <PasswordStats 
           password={password.slice(0, passwordLength)} 
@@ -147,16 +191,19 @@ function App() {
           passwordOptions={passwordOptions}
         />
 
-        <div className="flex justify-center mt-4 mb-6">
-          <Button
-            value="Create Password"
-            className="btn btn-outline btn-success"
-            svgCode={createPasswordSvg}
-            clickFunc={handleCreatePassword}
-          />
-        </div>
+        {/* Password breach check */}
+        <PasswordBreachCheck password={password.slice(0, passwordLength)} />
+        
+        {/* Password memory aid */}
+        <PasswordMnemonic password={password.slice(0, passwordLength)} />
+        
+        {/* Password history */}
+        <PasswordHistory 
+          history={history} 
+          onClearHistory={clearHistory}
+          onSelectPassword={handleSelectPassword}
+        />
       </div>
-      {/* <Footer /> */}
     </div>
   );
 }

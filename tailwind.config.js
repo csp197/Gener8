@@ -5,7 +5,11 @@ export default {
   ],
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        typewriter: ['"Special Elite"', 'monospace'],
+      },
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {

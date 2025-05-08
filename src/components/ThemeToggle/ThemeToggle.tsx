@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "./ThemeToggle.css";
 
 interface ThemeToggleProps {
   initialTheme?: "light" | "dark";
@@ -66,10 +65,10 @@ const ThemeToggle = ({ initialTheme = "dark" }: ThemeToggleProps) => {
   );
 
   return (
-    <div className="theme-toggle">
+    <div className="flex justify-center items-center">
       <button 
         onClick={toggleTheme} 
-        className="btn btn-circle btn-sm"
+        className="bg-transparent text-gray-900 dark:text-white rounded-full flex items-center justify-center p-2 transition-all duration-300 hover:rotate-12"
         aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
       >
         {theme === "light" ? moonIcon : sunIcon}
