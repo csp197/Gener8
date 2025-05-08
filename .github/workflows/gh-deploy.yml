@@ -1,9 +1,9 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Trigger the workflow on push to main branch
+  # Trigger the workflow on push to gh-pages branch
   push:
-    branches: [ "main" ]
+    branches: [ "gh-pages" ]
   
   # Allow manual triggers
   workflow_dispatch:
