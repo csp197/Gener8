@@ -6,7 +6,7 @@ import PasswordField from "./components/PasswordField/PasswordField";
 import Selections from "./components/Selections/Selections";
 import RangeSlider from "./components/RangeSlider/RangeSlider";
 import generatePassword from "./core/generatePassword";
-import Button from "./components/Button/Button";
+// import Button from "./components/Button/Button";
 import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
 import initializeInteractiveElements from "./utils/dropdown";
 import PasswordStats from "./components/PasswordStats/PasswordStats";
@@ -101,40 +101,40 @@ function App() {
     }
   }, []);
 
-  const handleCreatePassword = () => {
-    const newPassword = generatePassword(passwordType, passwordOptions, passwordLength);
-    setPassword(newPassword);
+  // const handleCreatePassword = () => {
+  //   const newPassword = generatePassword(passwordType, passwordOptions, passwordLength);
+  //   setPassword(newPassword);
     
-    // Add to history when a new password is generated
-    addToHistory(
-      newPassword.slice(0, passwordLength), 
-      passwordLength, 
-      passwordType
-    );
-  };
+  //   // Add to history when a new password is generated
+  //   addToHistory(
+  //     newPassword.slice(0, passwordLength), 
+  //     passwordLength, 
+  //     passwordType
+  //   );
+  // };
 
   // Called when a password is selected from history
   const handleSelectPassword = (selectedPassword: string) => {
     setPassword(selectedPassword);
   };
 
-  const createPasswordSvg = (
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      width="16px" 
-      height="16px" 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-    >
-      <path d="M20 11H4c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2z" />
-      <path d="M8 11V7c0-2.2 1.8-4 4-4s4 1.8 4 4v4" />
-      <circle cx="12" cy="16" r="1" />
-    </svg>
-  );
+  // const createPasswordSvg = (
+  //   <svg 
+  //     xmlns="http://www.w3.org/2000/svg" 
+  //     width="16px" 
+  //     height="16px" 
+  //     viewBox="0 0 24 24" 
+  //     fill="none" 
+  //     stroke="currentColor" 
+  //     strokeWidth="2" 
+  //     strokeLinecap="round" 
+  //     strokeLinejoin="round"
+  //   >
+  //     <path d="M20 11H4c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2z" />
+  //     <path d="M8 11V7c0-2.2 1.8-4 4-4s4 1.8 4 4v4" />
+  //     <circle cx="12" cy="16" r="1" />
+  //   </svg>
+  // );
 
   return (
     <div className="dark:bg-gray-900 min-h-screen">

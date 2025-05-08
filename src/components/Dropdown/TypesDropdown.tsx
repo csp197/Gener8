@@ -1,4 +1,8 @@
-import { useId, useRef, useEffect } from "react";
+import { 
+  useId, 
+  useRef, 
+  // useEffect 
+} from "react";
 import Button from "../Button/Button";
 
 export interface ITypeDropdownProps {

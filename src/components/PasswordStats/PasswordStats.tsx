@@ -16,7 +16,12 @@ interface PasswordStatsProps {
  * A component that displays statistics about the generated password
  * including strength rating and estimated time to crack.
  */
-const PasswordStats = ({ password, passwordType, passwordOptions }: PasswordStatsProps) => {
+const PasswordStats = (
+  { 
+    password, 
+    // passwordType, 
+    // passwordOptions 
+  }: PasswordStatsProps) => {
   const [strength, setStrength] = useState<'weak' | 'moderate' | 'strong' | 'very-strong'>('weak');
   const [crackTime, setCrackTime] = useState('');
   const [entropy, setEntropy] = useState(0);
