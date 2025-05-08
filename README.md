@@ -2,6 +2,10 @@
 
 A modern, secure password generator built with React, TypeScript, and Tailwind CSS.
 
+![ThisIsWhatItLooksLike](assets/screenshot.png)
+
+###### That's right, it's another password generator! Because there aren't enough of these around already...
+
 ## Features
 
 ### Core Features
@@ -75,8 +79,4 @@ Key components include:
 - Memory aids for complex passwords (mnemonic techniques)
 - Password breach detection
 - Session-based password history
-
-![ThisIsWhatItLooksLike](assets/screenshot.png)
-
-###### That's right, it's another password generator! Because there aren't enough of these around already...
 
